@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "project-os-d8fd3": {
+      "hosting": {
+        "frontend": [
+          "project-os-d8fd3"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "project-os-d8fd3"
+  }
+}
