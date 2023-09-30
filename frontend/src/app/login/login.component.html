@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="wrapper" >
+
+    <div class="form-class" [class.mat-elevation-z1]="true" >
+
+      <div *ngIf="isLogIn; then logIn; else signUp"></div>
+
+      <ng-template #logIn>
+        <h1>Log In</h1>
+        <form [formGroup]="logInForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" input="email" matInput>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input formControlName="password" type="password" matInput>
+          </mat-form-field>
+          <button mat-flat-button color="accent" (click)="logInWithEmailAndPassword()">Log In</button>
+          <mat-divider></mat-divider>
+        </form>
+        <button mat-stroked-button color="accent" (click)="logInWithGoogle()">Google Log In</button>
+        <p (click)="display()">New User?</p>
+      </ng-template>
+
+      <ng-template #signUp>
+        <h1>Sign Up</h1>
+        <form [formGroup]="signUpForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input formControlName="username" input="text" matInput>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" input="email" matInput>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input formControlName="password" type="password" matInput>
+          </mat-form-field>
+          <button mat-flat-button color="accent" (click)="signUpWithEmailAndPassword()">Sign Up</button>
+          <mat-divider></mat-divider>
+        </form>
+        <button mat-stroked-button color="accent" (click)="logInWithGoogle()">Google Sign Up</button>
+        <p (click)="display()">Log In?</p>
+      </ng-template>
+
+    </div>
+
+  </div>
+</div>

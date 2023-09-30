@@ -1,0 +1,56 @@
+.container {
+  background: rgb(238,174,202);
+  background: linear-gradient(315deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-class {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  background: rgb(148,187,233);
+  background: linear-gradient(0deg, rgba(148,187,233,1) 0%, rgba(238,174,202,1) 100%);
+  border-radius: 5px;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  width: 40vh;
+}
+
+mat-divider {
+  margin: 1rem 0 1rem 0;
+}
+
+p {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 480px) {
+
+  mat-form-field {
+    width: 30vh;
+  }
+
+}
