@@ -28,7 +28,7 @@ const materialComponents = [
     materialComponents
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 6500}}
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 6500} }
   ]
 })
 export class MaterialModule { }

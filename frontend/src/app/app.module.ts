@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 
@@ -24,11 +24,15 @@ import { MaterialModule } from './material/material.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpInterceptorService } from './service/http-interceptor.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DesktopComponent } from './desktop/desktop.component';
+import { TerminalComponent } from './desktop/terminal/terminal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    DesktopComponent,
+    TerminalComponent
   ],
   imports: [
     BrowserModule,

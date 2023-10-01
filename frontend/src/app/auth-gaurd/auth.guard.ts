@@ -1,11 +1,29 @@
-import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable, take, map } from 'rxjs';
+import { VerifyIdTokenService } from '../service/verify-id-token.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  const router=inject(Router);
-  if(localStorage.getItem("idToken")===null) {
-    router.navigate(['/']);
+export const AuthGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot):
+    Observable<boolean | UrlTree> | Promise<boolean | UrlTree>| boolean | UrlTree=> {
+
+  const router = inject(Router);
+  const idToken = localStorage.getItem('idToken');
+
+  if(idToken === null) {
     return false;
   }
-  return true;
+
+  return inject(VerifyIdTokenService).verifyIdToken(idToken!.replace(/"/g, ''))
+    .pipe(
+      take(1),
+      map((result: any) => {
+        const isAuth = result;
+        if(isAuth) {
+          return true;
+        }
+        return router.createUrlTree(['/']);
+      })
+    )
 };

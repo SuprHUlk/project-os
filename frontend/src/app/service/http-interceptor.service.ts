@@ -15,8 +15,7 @@ export class HttpInterceptorService implements HttpInterceptor {
       return next.handle(request);
     }
 
-    const token = localStorage.getItem('token')!.replace(/"/g, '');
-
+    const token = localStorage.getItem('idToken')!.replace(/"/g, '');
     const modifiedReq = this.addToken(request, token);
 
     return next.handle(modifiedReq).pipe(
