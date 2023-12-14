@@ -1,1 +1,26 @@
-<p>desktop works!</p>
+<div class="container">
+  <div class="header mat-body-1">
+    <mat-icon matRipple>dynamic_feed</mat-icon>
+    <p style="margin: 0;">GradientOS</p>
+    <mat-icon matRipple mat-button [matMenuTriggerFor]="beforeMenu">account_circle</mat-icon>
+    <mat-menu #beforeMenu="matMenu" xPosition="before" >
+      <button mat-menu-item (click)="logOut()">Log Out</button>
+    </mat-menu>
+
+  </div>
+
+  <div class="main">
+    <app-terminal (closeTerminal)="toggleTerminal($event)" *ngIf="apps.terminal"></app-terminal>
+  </div>
+
+  <div class="taskbar">
+    <div class="terminal" (click)="toggleTerminal(true)">
+      <img style="
+          cursor: pointer;
+          width: 2.5rem;"
+          src="data:image/svg+xml;base64,PHN2ZyBzdHlsZT0iZmlsdGVyOiBkcm9wLXNoYWRvdyggMHB4IDFweCAxcHggcmdiYSgwLCAwLCAwLCAuNSkpOyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjQ4IgogIHdpZHRoPSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICA8dGl0bGU+d2luZG93IGNvZGU8L3RpdGxlPgogIDxnIGNsYXNzPSJuYy1pY29uLXdyYXBwZXIiPgogICAgPHBhdGggZmlsbD0iI2UzZTVlYyIKICAgICAgZD0iTTQ1LDQ1SDNjLTEuMTA1LDAtMi0wLjg5NS0yLTJWNWMwLTEuMTA1LDAuODk1LTIsMi0yaDQyYzEuMTA1LDAsMiwwLjg5NSwyLDJ2MzhDNDcsNDQuMTA1LDQ2LjEwNSw0NSw0NSw0NXogIj4KICAgIDwvcGF0aD4KICAgIDxyZWN0IHg9IjMiIHk9IjEwIiBmaWxsPSIjMmUzNzQ0IiB3aWR0aD0iNDIiIGhlaWdodD0iMzMiPjwvcmVjdD4KICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiCiAgICAgIGQ9Ik0xMCwzMWMtMC4yNTYsMC0wLjUxMi0wLjA5OC0wLjcwNy0wLjI5M2MtMC4zOTEtMC4zOTEtMC4zOTEtMS4wMjMsMC0xLjQxNEwxMi41ODYsMjZsLTMuMjkzLTMuMjkzIGMtMC4zOTEtMC4zOTEtMC4zOTEtMS4wMjMsMC0xLjQxNHMxLjAyMy0wLjM5MSwxLjQxNCwwbDQsNGMwLjM5MSwwLjM5MSwwLjM5MSwxLjAyMywwLDEuNDE0bC00LDRDMTAuNTEyLDMwLjkwMiwxMC4yNTYsMzEsMTAsMzF6Ij4KICAgIDwvcGF0aD4KICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0yOCwzMWgtOGMtMC41NTIsMC0xLTAuNDQ4LTEtMXMwLjQ0OC0xLDEtMWg4YzAuNTUyLDAsMSwwLjQ0OCwxLDFTMjguNTUyLDMxLDI4LDMxeiI+PC9wYXRoPgogIDwvZz4KPC9zdmc+"
+          alt="">
+    </div>
+  </div>
+
+</div>

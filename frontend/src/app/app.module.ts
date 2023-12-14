@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { DesktopComponent } from './desktop/desktop.component';
+import { TerminalComponent } from './desktop/terminal/terminal.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -24,8 +26,7 @@ import { MaterialModule } from './material/material.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpInterceptorService } from './service/http-interceptor.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DesktopComponent } from './desktop/desktop.component';
-import { TerminalComponent } from './desktop/terminal/terminal.component';
+import { ResizableModule } from 'angular-resizable-element';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { TerminalComponent } from './desktop/terminal/terminal.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ResizableModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),

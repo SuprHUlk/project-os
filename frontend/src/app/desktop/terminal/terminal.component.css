@@ -1,0 +1,133 @@
+mat-toolbar {
+  padding-top: 10px;
+  padding-bottom: 7px;
+  max-height: 1.5rem;
+  background: rgba( 136, 14, 79, 0.25 );
+  backdrop-filter: blur( 0px );
+  -webkit-backdrop-filter: blur( 0px );
+  display: flex;
+  justify-content: space-between;
+}
+
+.functions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close, .maximize, .resize {
+  transform: scale(0.7);
+}
+
+.body {
+  flex-grow: 1;
+  background-color: black;
+  padding: 1rem;
+}
+
+.description {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.app {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+              0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  background-color: transparent;
+
+  display: flex;
+  flex-direction: column;
+
+  /* transition: width 0.3s ease; */
+}
+
+.app:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+@media only screen and (max-width: 480px) {
+
+  .app {
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 0;
+  }
+
+}
+
+.resize-handle-top,
+.resize-handle-bottom {
+  position: absolute;
+  height: 5px;
+  cursor: row-resize;
+  width: 100%;
+}
+
+.resize-handle-top {
+  top: 0;
+}
+
+.resize-handle-bottom {
+  bottom: 0;
+}
+
+.resize-handle-left,
+.resize-handle-right {
+  position: absolute;
+  height: 100%;
+  cursor: col-resize;
+  width: 5px;
+}
+
+.resize-handle-left {
+  left: 0;
+}
+
+.resize-handle-right {
+  right: 0;
+}
+
+#texter {
+  position: absolute;
+  left: -5000000000000px;
+}
+
+#cursor {
+  display: flex;
+  align-items: start;
+  color: white;
+  font-weight: 900;
+  overflow: hidden;
+}
+
+#cursor::before {
+  content: '> ';
+}
+
+#cursor::after {
+  content: '|';
+  display: inline-block;
+  background-color: white;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+#prev-line {
+  display: flex;
+  align-items: flex-start;
+  text-align: start;
+  color: white;
+  font-weight: 900;
+}

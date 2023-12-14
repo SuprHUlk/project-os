@@ -12,7 +12,7 @@ export const AuthGuard: CanActivateFn = (
   const idToken = localStorage.getItem('idToken');
 
   if(idToken === null) {
-    return false;
+    return router.createUrlTree(['/']);
   }
 
   return inject(VerifyIdTokenService).verifyIdToken(idToken!.replace(/"/g, ''))

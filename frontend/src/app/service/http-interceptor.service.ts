@@ -2,16 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
 
   constructor() { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-
-    if(request.headers.get("No-Auth") === "True") {
+    if(localStorage.getItem('idToken') == null) {
       return next.handle(request);
     }
 
@@ -29,6 +26,6 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   private addToken(request: HttpRequest<any>, token: String | null) {
-    return request.clone( {  headers: request.headers.append('Authorization', 'Bearer '+token) } );
+    return request.clone( {  headers: request.headers.set('Authorization', 'Bearer '+token) } );
   }
 }

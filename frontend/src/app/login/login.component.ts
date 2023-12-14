@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../service/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,9 @@ export class LoginComponent {
   constructor (private loginService: LoginService,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    private http: HttpClient) {}
+    private http: HttpClient,
+    private router: Router
+    ) {}
 
   isLogIn: boolean = true;
 
@@ -47,21 +50,14 @@ export class LoginComponent {
       this.openSnackBar('admin-restricted-operation: Please fill all the fields with valid values', 'Ok');
     }
     else {
-      this.loginService.logInWithEmailAndPassword(this.logInForm)
-      .then(
+      this.loginService.logInWithEmailAndPassword(this.logInForm.value)
+      .subscribe(
         (res: any) => {
-          if(res === 'NO_ERROR') {
-            this.openSnackBar('Log In successful', 'Ok');
-          }
-          else if(res === 'auth/invalid-email') {
-            this.openSnackBar('invalid-email: Please enter a valid email', 'Ok');
-          }
-          else if(res === 'auth/missing-password') {
-            this.openSnackBar('missing-password: Please enter the password', 'Ok');
-          }
-          else if(res === 'auth/invalid-login-credentials' ||
-            res === 'auth/wrong-password') {
-            this.openSnackBar('invalid-login-credentials: Please recheck you credentials', 'Ok');
+          this.openSnackBar('Log In successful', 'Ok');
+        },
+        (err: any) => {
+          if(err.error.error === 'InvalidCredentials') {
+            this.openSnackBar('InvalidCredentials: Please recheck you credentials', 'Ok');
           }
           else {
             this.openSnackBar('unknown-error: Please try again', 'Ok');
@@ -78,26 +74,25 @@ export class LoginComponent {
       this.openSnackBar('admin-restricted-operation: Please fill all the fields with valid values', 'Ok');
     }
     else {
-      this.loginService.signUpWithEmailAndPassword(this.signUpForm)
-      .then(
-        (res: any) => {
-          if(res === 'NO_ERROR') {
+      this.loginService.signUpWithEmailAndPassword(this.signUpForm.value)
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          this.display();
             this.openSnackBar('Sign Up successful', 'Ok');
+        },
+        (error: any) => {
+          if(error.error.error.name === 'ValidationError') {
+            this.openSnackBar('email-already-in-use: Please try a different email', 'Ok');
           }
-          else if(res === 'auth/admin-restricted-operation' || res === 'auth/missing-password') {
-            this.openSnackBar('admin-restricted-operation: Please fill all the fields with valid values', 'Ok');
-          }
-          else if(res === 'auth/email-already-in-use') {
-            this.openSnackBar('email-already-in-use: Please try different email', 'Ok');
-          }
-          else if(res === 'auth/weak-password') {
+          else if(error.error.error === 'WeakPassword') {
             this.openSnackBar('weak-password: Password should be at least 6 characters', 'Ok');
           }
           else {
             this.openSnackBar('unknown-error: Please try again', 'Ok');
           }
         }
-      );
+      )
     }
   }
 

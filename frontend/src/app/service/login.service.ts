@@ -3,17 +3,34 @@ import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
   } from "firebase/auth";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router'
+import { HttpClient } from '@angular/common/http';
+import { take, map, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private fireAuth: AngularFireAuth) { }
+  constructor(private fireAuth: AngularFireAuth, private router: Router, private http: HttpClient) { }
+
+  logInWithEmailAndPassword(logInForm: any): any {
+
+    return this.http.post("http://localhost:3000/auth/login", logInForm)
+      .pipe(
+        take(1),
+        map((result: any) => {
+          console.log(result);
+          localStorage.setItem('idToken', JSON.stringify(result.idToken));
+          this.router.navigate(['/desktop']);
+        }),
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      )
+  }
 
   logInWithGoogle() {
     const auth = getAuth();
@@ -22,43 +39,40 @@ export class LoginService {
     return signInWithPopup(auth, provider)
       .then(
           (result: any) => {
-            localStorage.setItem('idToken', JSON.stringify(result._tokenResponse.idToken));
+            this.http.post("http://localhost:3000/auth/google", {
+              username: result._tokenResponse.displayName,
+              email: result._tokenResponse.email,
+              })
+              .subscribe(
+                ((res: any) => {
+                  console.log(res);
+                  localStorage.setItem('idToken', JSON.stringify(res.idToken));
+                  this.router.navigate(['/desktop']);
+                })
+              )
           },
           (error) => { console.log(error); }
       )
   }
 
-  logInWithEmailAndPassword(logInForm: any) {
-    const auth = getAuth();
-
-    return signInWithEmailAndPassword(auth, logInForm.value.email, logInForm.value.password)
-      .then(
-        (result: any) => {
+  signUpWithEmailAndPassword(signUpForm: any): any {
+    return this.http.post("http://localhost:3000/auth/signup", signUpForm)
+      .pipe(
+        take(1),
+        map((result: any) => {
           console.log(result);
-          localStorage.setItem('idToken', JSON.stringify(result._tokenResponse.idToken));
           return 'NO_ERROR';
-        },
-        (error) => {
-          console.log(error.code);
-          return error.code;
-        }
+        }),
+        catchError((error) => {
+          console.log(error);
+          return throwError(() => error);
+        })
       )
   }
 
-  signUpWithEmailAndPassword(signUpForm: any) {
-    const auth = getAuth();
-
-    return createUserWithEmailAndPassword(auth, signUpForm.value.email, signUpForm.value.password)
-      .then(
-        (result: any) => {
-          console.log(result);
-          return 'NO_ERROR';
-        },
-        (error) => {
-          console.log(error.code);
-          return error.code;
-        }
-      )
+  logOut() {
+    localStorage.clear();
+    this.router.navigate(['/']);
   }
 
 }

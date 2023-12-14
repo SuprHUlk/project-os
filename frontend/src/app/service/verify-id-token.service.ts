@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { take, map } from 'rxjs';
+import { take, map, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +11,17 @@ export class VerifyIdTokenService {
 
   verifyIdToken(idToken: string) {
 
-    const request = { idToken: idToken };
+    const request = { };
 
-    const requestHeader = new HttpHeaders(
-      { 'No-Auth': 'True' }
-    );
-
-    return this.http.post('http://localhost:8080/verifyFirebaseToken', request, { headers: requestHeader })
+    return this.http.post('http://localhost:3000/valid/isauthenticated', request)
       .pipe(
         take(1),
-        map((result: any) => {
+        map(
+          (result: any) => {
           return result.isValid === "true";
+        }),
+        catchError(() => {
+          return throwError(() => false);
         })
       );
   }
