@@ -27,13 +27,15 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpInterceptorService } from './service/http-interceptor.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResizableModule } from 'angular-resizable-element';
+import { ExplorerComponent } from './desktop/explorer/explorer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DesktopComponent,
-    TerminalComponent
+    TerminalComponent,
+    ExplorerComponent,
   ],
   imports: [
     BrowserModule,

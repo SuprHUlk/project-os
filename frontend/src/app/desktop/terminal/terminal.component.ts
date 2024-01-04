@@ -11,7 +11,7 @@ export class TerminalComponent {
 
   constructor(private terminalService: TerminalService) { }
 
-  @Output('closeTerminal') isTerminalOpen = new EventEmitter<Boolean>();
+  @Output('closeTerminal') isTerminalOpen = new EventEmitter<{ appName: string, status: boolean }>();
 
   @ViewChild('texter') texter!: ElementRef;
 
@@ -20,14 +20,16 @@ export class TerminalComponent {
   style: object = {color: 'red'};
   cmd: string = '';
   // displayedCmd: string = '';
-  displayedCmd: any;
+  displayedCmd: any = "";
+  dragPosition = {x: 0, y: 0};
 
   closeTerminal() {
-    this.isTerminalOpen.emit(false);
+    this.isTerminalOpen.emit({ appName: "terminal", status: false });
   }
 
   maximizeTerminal() {
     if(this.width === '40%') {
+      this.dragPosition = {x: 0, y: 0};
       this.width = '100%';
       this.height = '100%';
     }

@@ -17,8 +17,7 @@ export class TerminalService {
 
     switch(command) {
       case 'whoami':
-        this.test();
-        this.returnVal = this.whoami();
+        this.returnVal = '<br>' + this.whoami();
         break;
       case 'help':
         this.returnVal = '<br>whoami<br>help<br>clear<br>';
@@ -30,30 +29,7 @@ export class TerminalService {
     return this.returnVal;
   }
 
-  test() {
-    const requestHeader = new HttpHeaders(
-      { 'No-Auth': 'False' }
-    );
-    console.log(2313);
-    this.http.post('http://localhost:8080/verifyFirebaseToken', { idToken: localStorage.getItem("idToken") }, { headers: requestHeader }).subscribe(
-      res => console.log(res)
-    )
-  }
-
   whoami() {
-
-    const requestHeader = new HttpHeaders(
-      { 'Authorization': localStorage.getItem("idToken")! }
-    );
-
-
-    return this.http.post('http://localhost:8080/verifyFirebaseToken', { idToken: localStorage.getItem("idToken") }, { headers: requestHeader })
-      .pipe(
-        take(1),
-        map((result: any) => {
-          console.log(result);
-          return result.isValid;
-        })
-      );
+    return localStorage.getItem('username');
   }
 }

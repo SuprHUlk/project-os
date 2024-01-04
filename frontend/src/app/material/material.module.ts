@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatRippleModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu'
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 import { CdkMenuModule } from '@angular/cdk/menu';
@@ -26,9 +27,10 @@ const materialComponents = [
   MatRippleModule,
   MatMenuModule,
   MatToolbarModule,
+  MatSidenavModule,
   CdkMenuModule,
   CdkDrag,
-  CdkDragHandle
+  CdkDragHandle,
 ]
 
 @NgModule({

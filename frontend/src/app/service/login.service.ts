@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  } from "firebase/auth";
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http';
 import { take, map, catchError, throwError } from 'rxjs';
@@ -14,7 +9,7 @@ import { take, map, catchError, throwError } from 'rxjs';
 })
 export class LoginService {
 
-  constructor(private fireAuth: AngularFireAuth, private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   logInWithEmailAndPassword(logInForm: any): any {
 
@@ -23,7 +18,8 @@ export class LoginService {
         take(1),
         map((result: any) => {
           console.log(result);
-          localStorage.setItem('idToken', JSON.stringify(result.idToken));
+          localStorage.setItem('idToken', result.idToken);
+          localStorage.setItem('username', result.username);
           this.router.navigate(['/desktop']);
         }),
         catchError((error) => {
@@ -46,7 +42,8 @@ export class LoginService {
               .subscribe(
                 ((res: any) => {
                   console.log(res);
-                  localStorage.setItem('idToken', JSON.stringify(res.idToken));
+                  localStorage.setItem('idToken', res.idToken);
+                  localStorage.setItem('username', res.username);
                   this.router.navigate(['/desktop']);
                 })
               )

@@ -43,10 +43,10 @@
   -webkit-backdrop-filter: blur( 20px );
 }
 
-.terminal {
+.terminal, .explorer {
   padding: 5px 5px 0 5px;
 }
 
-.terminal:hover {
+.terminal:hover, .explorer:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }

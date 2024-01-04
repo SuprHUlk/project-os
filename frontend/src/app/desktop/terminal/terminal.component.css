@@ -101,7 +101,7 @@ mat-toolbar {
 
 #cursor {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   color: white;
   font-weight: 900;
   overflow: hidden;

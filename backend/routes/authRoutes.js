@@ -25,7 +25,8 @@ router.post("/google", (req, res, next) => {
             );
             return res.status(201).json({
               message: "NO_ERROR",
-              idToken: token
+              idToken: token,
+              username: result.username
             })
           })
           .catch(err => {
@@ -40,7 +41,8 @@ router.post("/google", (req, res, next) => {
         );
         return res.status(200).json({
           message: "NO_ERROR",
-          idToken: token
+          idToken: token,
+          username: user.username
         });
       }
     });
@@ -73,7 +75,8 @@ router.post("/login", (req, res, next) => {
 
             res.status(200).json({
                 message: "NO_ERROR",
-                idToken: token
+                idToken: token,
+                username: fetchedUser.username
             });
         })
         .catch(error => {

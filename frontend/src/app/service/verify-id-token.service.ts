@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { take, map, catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -18,11 +18,12 @@ export class VerifyIdTokenService {
         take(1),
         map(
           (result: any) => {
-          return result.isValid === "true";
-        }),
-        catchError(() => {
-          return throwError(() => false);
-        })
+            return result.isValid === "true";
+          },
+          (error: any) => {
+            return false;
+          }
+        )
       );
   }
 

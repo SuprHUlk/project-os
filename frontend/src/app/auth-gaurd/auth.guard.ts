@@ -20,6 +20,7 @@ export const AuthGuard: CanActivateFn = (
       take(1),
       map((result: any) => {
         const isAuth = result;
+        console.log(isAuth);
         if(isAuth) {
           return true;
         }

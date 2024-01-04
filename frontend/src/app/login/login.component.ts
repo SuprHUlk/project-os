@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../service/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +13,6 @@ export class LoginComponent {
   constructor (private loginService: LoginService,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    private http: HttpClient,
-    private router: Router
     ) {}
 
   isLogIn: boolean = true;

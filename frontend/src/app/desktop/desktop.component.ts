@@ -11,7 +11,8 @@ export class DesktopComponent {
   constructor(private loginService: LoginService) {}
 
   apps = {
-    'terminal': true,
+    'terminal': false,
+    'explorer': true,
   };
 
   // cntOpenApps: number = 0;
@@ -29,13 +30,18 @@ export class DesktopComponent {
   //   this.isAnyAppOpen();
   // }
 
-  toggleTerminal(toggle: any) {
-    if(toggle === true) {
-      this.apps.terminal = true;
+  toggleApp(toggle: { appName: string, status: boolean }) {
+
+    const appName: string = toggle.appName;
+    const status: boolean = toggle.status;
+
+    if(appName ==='terminal') {
+      this.apps.terminal = status;
     }
-    else {
-      this.apps.terminal = false;
+    else if(appName === 'explorer') {
+      this.apps.explorer = status;
     }
+
   }
 
   // isAnyAppOpen() {
