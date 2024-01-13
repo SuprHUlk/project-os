@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { FileService } from 'src/app/service/file.service';
 
@@ -22,15 +22,14 @@ export class ExplorerComponent {
 
   view: boolean = true;
   path: string = 'home'
-  folder: string = '';
   docs: any;
   folderList: string[] = [];
   isAtHome: boolean = true;
   idx: number = -1;
-  display: string = 'block';
   isSidenavOpened: boolean = true;
 
   @Output('closeExplorer') isExplorerOpen = new EventEmitter<{ appName: string, status: boolean }>();
+  @Output('openMediaViewer') fileEmitter = new EventEmitter<{ mimeType: string, link: string }>();
 
   width: string = '40%';
   height: string = '40%';
@@ -39,6 +38,10 @@ export class ExplorerComponent {
 
   closeExplorer() {
     this.isExplorerOpen.emit({ appName: "explorer", status: false });
+  }
+
+  openMediaViewer(mimeType: string, link: string) {
+    this.fileEmitter.emit({ mimeType: link, link: mimeType });
   }
 
   maximizeExplorer() {
@@ -86,8 +89,7 @@ export class ExplorerComponent {
         (err) => {
           this.changeView(folderName, src);
         }
-      )
-
+      );
   }
 
   changeView(folderName: string, src: number) {
@@ -115,7 +117,6 @@ export class ExplorerComponent {
     this.path = folderName === 'application'? 'home / document': 'home / '+ folderName;
     this.isAtHome = false;
     this.idx++;
-    console.log(this.folderList, this.idx);
   }
 
   back() {
@@ -135,7 +136,6 @@ export class ExplorerComponent {
             this.path = this.folderList[this.idx] === 'application'? 'home / document': 'home / '+ this.folderList[this.idx];
             this.view = !this.view;
             this.view = !this.view;
-            console.log(this.folderList, this.idx);
           }
         )
     }

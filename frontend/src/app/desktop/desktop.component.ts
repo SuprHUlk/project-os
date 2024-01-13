@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../service/login.service';
+import { timer, map, share } from 'rxjs';
 
 @Component({
   selector: 'app-desktop',
@@ -12,28 +13,41 @@ export class DesktopComponent {
 
   apps = {
     'terminal': false,
-    'explorer': true,
+    'explorer': false,
+    'mediaViewer': false,
+    'toDo': true
   };
 
-  // cntOpenApps: number = 0;
-  anyAppOpen: boolean = false;
-  isTerminalOpen: boolean = false;
+  file: { mimeType: string, link: string } = { mimeType: '', link: ''};
 
-  // openTerminal() {
-  //   if(this.apps.terminal) {
-  //     --this.cntOpenApps;
-  //   }
-  //   else {
-  //     ++this.cntOpenApps;
-  //   }
-  //   this.apps.terminal = !this.apps.terminal;
-  //   this.isAnyAppOpen();
-  // }
+  time = new Date();
+  rxTime = new Date();
+  subscription: any;
+
+  ngOnInit() {
+
+    console.log(this.rxTime);
+
+
+    this.subscription = timer(0, 1000)
+      .pipe(
+        map(() => new Date()),
+        share()
+      )
+      .subscribe(time => {
+        this.rxTime = time;
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
   toggleApp(toggle: { appName: string, status: boolean }) {
 
-    const appName: string = toggle.appName;
-    const status: boolean = toggle.status;
+    const { appName, status } = toggle;
 
     if(appName ==='terminal') {
       this.apps.terminal = status;
@@ -41,21 +55,26 @@ export class DesktopComponent {
     else if(appName === 'explorer') {
       this.apps.explorer = status;
     }
+    else if(appName === 'mediaViewer') {
+      this.apps.mediaViewer = status;
+    }
+    else if(appName === 'toDo') {
+      this.apps.toDo = status;
+    }
 
   }
 
-  // isAnyAppOpen() {
-  //   if(this.cntOpenApps == 0) {
-  //     this.anyAppOpen = false;
-  //   }
-  //   else {
-  //     this.anyAppOpen = true;
-  //   }
-  // }
+  openMediaViewer(data: { mimeType: string, link: string }) {
+    const { mimeType, link } = data;
+    if (this.apps.mediaViewer) this.apps.mediaViewer = !this.apps.mediaViewer;
+    this.apps.mediaViewer = true;
+    console.log(mimeType, link);
+
+    this.file = { mimeType, link };
+  }
 
   logOut() {
     this.loginService.logOut();
   }
-
 
 }

@@ -43,10 +43,21 @@
   -webkit-backdrop-filter: blur( 20px );
 }
 
-.terminal, .explorer {
+.temp {
+  margin-right: auto;
+  visibility: hidden;
+}
+
+.apps {
+  display: flex;
+  margin-right: auto;
+}
+
+
+.terminal, .explorer, .media-viewer, .to-do {
   padding: 5px 5px 0 5px;
 }
 
-.terminal:hover, .explorer:hover {
+.terminal:hover, .explorer:hover, .media-viewer:hover, .to-do:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }

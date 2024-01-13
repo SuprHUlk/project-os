@@ -1,0 +1,41 @@
+<div
+  class="app"
+  cdkDrag
+  cdkDragBoundary=".main"
+  [cdkDragFreeDragPosition]="dragPosition"
+  [style.width]="width"
+  [style.height]="height"
+  >
+  <mat-toolbar color="accent" cdkDragHandle>
+    <div class="description">
+      <img
+        style="width: 1rem;"
+        src="data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KDTwhLS0gVXBsb2FkZWQgdG86IFNWRyBSZXBvLCB3d3cuc3ZncmVwby5jb20sIFRyYW5zZm9ybWVkIGJ5OiBTVkcgUmVwbyBNaXhlciBUb29scyAtLT4KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9Ii0xMDIuNCAtMTAyLjQgMTIyOC44MCAxMjI4LjgwIiBjbGFzcz0iaWNvbiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiMwMDAwMDAiPgoNPGcgaWQ9IlNWR1JlcG9fYmdDYXJyaWVyIiBzdHJva2Utd2lkdGg9IjAiPgoNPHJlY3QgeD0iLTEwMi40IiB5PSItMTAyLjQiIHdpZHRoPSIxMjI4LjgwIiBoZWlnaHQ9IjEyMjguODAiIHJ4PSIwIiBmaWxsPSIjOGNkNWVkIiBzdHJva2V3aWR0aD0iMCIvPgoNPC9nPgoNPGcgaWQ9IlNWR1JlcG9fdHJhY2VyQ2FycmllciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiNDQ0NDQ0MiIHN0cm9rZS13aWR0aD0iNi4xNDQiLz4KDTxnIGlkPSJTVkdSZXBvX2ljb25DYXJyaWVyIj4KDTxwYXRoIGQ9Ik04MDkuMyAxMDI0SDIxNC43Yy03MS4zIDAtMTI5LjQtNTgtMTI5LjQtMTI5LjRWMTI5LjRDODUuMyA1OCAxNDMuNCAwIDIxNC43IDBoNTk0LjZjNzEuMyAwIDEyOS40IDU4IDEyOS40IDEyOS40djc2NS4zYzAgNzEuMy01OC4xIDEyOS4zLTEyOS40IDEyOS4zek0yMTQuNyA4NS4zYy0yNC4zIDAtNDQgMTkuOC00NCA0NHY3NjUuM2MwIDI0LjMgMTkuOCA0NCA0NCA0NGg1OTQuNmMyNC4zIDAgNDQtMTkuOCA0NC00NFYxMjkuNGMwLTI0LjMtMTkuOC00NC00NC00NEgyMTQuN3oiIGZpbGw9IiMzNjg4RkYiLz4KDTxwYXRoIGQ9Ik00MjYuNyAxMDI0SDIxMy4zYy03MC42IDAtMTI4LTU3LjQtMTI4LTEyOFY2ODIuN2gyMTMuNGM3MC42IDAgMTI4IDU3LjQgMTI4IDEyOFYxMDI0eiBtLTI1Ni0yNTZ2MTI4YzAgMjMuNSAxOS4xIDQyLjYgNDIuNiA0Mi42aDEyOHYtMTI4YzAtMjMuNS0xOS4xLTQyLjYtNDIuNi00Mi42aC0xMjh6TTgxMC43IDEwMjRINTk3LjNWODEwLjZjMC03MC42IDU3LjQtMTI4IDEyOC0xMjhoMjEzLjRWODk2YzAgNzAuNi01Ny40IDEyOC0xMjggMTI4eiBtLTEyOC04NS4zaDEyOGMyMy41IDAgNDIuNi0xOS4xIDQyLjYtNDIuNlY3NjhoLTEyOGMtMjMuNSAwLTQyLjYgMTkuMS00Mi42IDQyLjZ2MTI4LjF6TTQ0OCAzNTUuNkgyNzcuM2MtMjMuNiAwLTQyLjctMTkuMS00Mi43LTQyLjdzMTkuMS00Mi43IDQyLjctNDIuN0g0NDhjMjMuNiAwIDQyLjcgMTkuMSA0Mi43IDQyLjdzLTE5LjEgNDIuNy00Mi43IDQyLjd6TTY2MS4zIDUzMy4zaC0zODRjLTIzLjYgMC00Mi43LTE5LjEtNDIuNy00Mi43czE5LjEtNDIuNyA0Mi43LTQyLjdoMzg0YzIzLjYgMCA0Mi43IDE5LjEgNDIuNyA0Mi43cy0xOS4xIDQyLjctNDIuNyA0Mi43eiIgZmlsbD0iIzVGNjM3OSIvPgoNPC9nPgoNPC9zdmc+"
+        alt="">
+      <p style="font-weight: 400; font-size: small; color: black;">To Do</p>
+    </div>
+    <div class="fuctions">
+      <mat-icon matRipple class="minimize">minimize</mat-icon>
+      <mat-icon matRipple class="maximize" (click)="maximize()">web_asset</mat-icon>
+      <mat-icon matRipple class="close" (click)="close()">close</mat-icon>
+    </div>
+  </mat-toolbar>
+
+  <div class="body">
+    <p style="font-size: xx-large; margin: 0">List</p>
+    <div class="tasks" [style.max-height]="maxHeight">
+      <div class="task" *ngFor="let task of tasks">
+        <p style="word-break: break-word;">{{ task.task }}</p>
+        <span matRipple class="material-symbols-outlined" style="cursor: pointer;" (click)="delete(task._id)">cancel</span>
+      </div>
+    </div>
+    <form [formGroup]="toDoForm">
+      <mat-form-field >
+        <mat-label>Task</mat-label>
+        <input formControlName="task" input="task" matInput>
+      </mat-form-field>
+      <button mat-stroked-button color="accent" (click)="onClick()">Add</button>
+    </form>
+  </div>
+
+</div>

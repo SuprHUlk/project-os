@@ -28,6 +28,8 @@ import { HttpInterceptorService } from './service/http-interceptor.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResizableModule } from 'angular-resizable-element';
 import { ExplorerComponent } from './desktop/explorer/explorer.component';
+import { MediaViewerComponent } from './desktop/media-viewer/media-viewer.component';
+import { ToDoComponent } from './desktop/to-do/to-do.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { ExplorerComponent } from './desktop/explorer/explorer.component';
     DesktopComponent,
     TerminalComponent,
     ExplorerComponent,
+    MediaViewerComponent,
+    ToDoComponent,
   ],
   imports: [
     BrowserModule,
