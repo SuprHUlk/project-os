@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-media-viewer',
@@ -20,7 +20,9 @@ export class MediaViewerComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.link = this.file.link;
+    if(this.file.app === 'mediaViewer') {
+      this.link = this.file.link;
+    }
   }
 
   maximize() {

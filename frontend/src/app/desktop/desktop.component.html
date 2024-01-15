@@ -11,13 +11,18 @@
 
   <div class="main">
     <app-terminal (closeTerminal)="toggleApp($event)" *ngIf="apps.terminal"></app-terminal>
-    <app-explorer (closeExplorer)="toggleApp($event)" (openMediaViewer)="openMediaViewer($event)" *ngIf="apps.explorer"></app-explorer>
+
+    <app-explorer (closeExplorer)="toggleApp($event)" (openApp)="openApp($event)" *ngIf="apps.explorer"></app-explorer>
+
     <app-media-viewer (closeMediaViewer)="toggleApp($event)" [file]="file" *ngIf="apps.mediaViewer"></app-media-viewer>
+
     <app-to-do (closeToDo)="toggleApp($event)" *ngIf="apps.toDo"></app-to-do>
+
+    <app-notes (closeNotes)="toggleApp($event)" [file]="file" *ngIf="apps.notes"></app-notes>
   </div>
 
   <div class="taskbar">
-    <div class="temp">{{ rxTime | date: 'HH:mm a' }}<br>{{ rxTime | date: 'dd-MM-yyyy' }}</div>
+    <div class="temp">{{ rxTime | date: 'HH:mm' }}<br>{{ rxTime | date: 'dd-MM-yy' }}</div>
     <div class="apps">
       <div class="terminal" (click)="toggleApp({ appName: 'terminal', status: true })">
         <img style="
@@ -47,8 +52,15 @@
             src="data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KDTwhLS0gVXBsb2FkZWQgdG86IFNWRyBSZXBvLCB3d3cuc3ZncmVwby5jb20sIFRyYW5zZm9ybWVkIGJ5OiBTVkcgUmVwbyBNaXhlciBUb29scyAtLT4KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9Ii0xMDIuNCAtMTAyLjQgMTIyOC44MCAxMjI4LjgwIiBjbGFzcz0iaWNvbiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiMwMDAwMDAiPgoNPGcgaWQ9IlNWR1JlcG9fYmdDYXJyaWVyIiBzdHJva2Utd2lkdGg9IjAiPgoNPHJlY3QgeD0iLTEwMi40IiB5PSItMTAyLjQiIHdpZHRoPSIxMjI4LjgwIiBoZWlnaHQ9IjEyMjguODAiIHJ4PSIwIiBmaWxsPSIjOGNkNWVkIiBzdHJva2V3aWR0aD0iMCIvPgoNPC9nPgoNPGcgaWQ9IlNWR1JlcG9fdHJhY2VyQ2FycmllciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2U9IiNDQ0NDQ0MiIHN0cm9rZS13aWR0aD0iNi4xNDQiLz4KDTxnIGlkPSJTVkdSZXBvX2ljb25DYXJyaWVyIj4KDTxwYXRoIGQ9Ik04MDkuMyAxMDI0SDIxNC43Yy03MS4zIDAtMTI5LjQtNTgtMTI5LjQtMTI5LjRWMTI5LjRDODUuMyA1OCAxNDMuNCAwIDIxNC43IDBoNTk0LjZjNzEuMyAwIDEyOS40IDU4IDEyOS40IDEyOS40djc2NS4zYzAgNzEuMy01OC4xIDEyOS4zLTEyOS40IDEyOS4zek0yMTQuNyA4NS4zYy0yNC4zIDAtNDQgMTkuOC00NCA0NHY3NjUuM2MwIDI0LjMgMTkuOCA0NCA0NCA0NGg1OTQuNmMyNC4zIDAgNDQtMTkuOCA0NC00NFYxMjkuNGMwLTI0LjMtMTkuOC00NC00NC00NEgyMTQuN3oiIGZpbGw9IiMzNjg4RkYiLz4KDTxwYXRoIGQ9Ik00MjYuNyAxMDI0SDIxMy4zYy03MC42IDAtMTI4LTU3LjQtMTI4LTEyOFY2ODIuN2gyMTMuNGM3MC42IDAgMTI4IDU3LjQgMTI4IDEyOFYxMDI0eiBtLTI1Ni0yNTZ2MTI4YzAgMjMuNSAxOS4xIDQyLjYgNDIuNiA0Mi42aDEyOHYtMTI4YzAtMjMuNS0xOS4xLTQyLjYtNDIuNi00Mi42aC0xMjh6TTgxMC43IDEwMjRINTk3LjNWODEwLjZjMC03MC42IDU3LjQtMTI4IDEyOC0xMjhoMjEzLjRWODk2YzAgNzAuNi01Ny40IDEyOC0xMjggMTI4eiBtLTEyOC04NS4zaDEyOGMyMy41IDAgNDIuNi0xOS4xIDQyLjYtNDIuNlY3NjhoLTEyOGMtMjMuNSAwLTQyLjYgMTkuMS00Mi42IDQyLjZ2MTI4LjF6TTQ0OCAzNTUuNkgyNzcuM2MtMjMuNiAwLTQyLjctMTkuMS00Mi43LTQyLjdzMTkuMS00Mi43IDQyLjctNDIuN0g0NDhjMjMuNiAwIDQyLjcgMTkuMSA0Mi43IDQyLjdzLTE5LjEgNDIuNy00Mi43IDQyLjd6TTY2MS4zIDUzMy4zaC0zODRjLTIzLjYgMC00Mi43LTE5LjEtNDIuNy00Mi43czE5LjEtNDIuNyA0Mi43LTQyLjdoMzg0YzIzLjYgMCA0Mi43IDE5LjEgNDIuNyA0Mi43cy0xOS4xIDQyLjctNDIuNyA0Mi43eiIgZmlsbD0iIzVGNjM3OSIvPgoNPC9nPgoNPC9zdmc+"
             alt="">
       </div>
+      <div class="notes" (click)="toggleApp({ appName: 'notes', status: true })">
+        <img style="
+            cursor: pointer;
+            width: 2.3rem;"
+            src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjIiIGJhc2VQcm9maWxlPSJ0aW55LXBzIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KCTx0aXRsZT5hcHAtaWNvbi1lZGl0b3Itc3ZnPC90aXRsZT4KCTxkZWZzPgoJCTxsaW5lYXJHcmFkaWVudCBpZD0iZ3JkMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiICB4MT0iNDciIHkxPSIzOS41MTQiIHgyPSIxIiB5Mj0iOC40ODYiPgoJCQk8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM3MTAxZTgiICAvPgoJCQk8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM5MTY3YmUiICAvPgoJCTwvbGluZWFyR3JhZGllbnQ+Cgk8L2RlZnM+Cgk8c3R5bGU+CgkJdHNwYW4geyB3aGl0ZS1zcGFjZTpwcmUgfQoJCS5zaHAwIHsgZmlsbDogdXJsKCNncmQxKSB9IAoJCS5zaHAxIHsgZmlsbDogI2ZmZmZmZiB9IAoJPC9zdHlsZT4KCTxnIGlkPSJMYXllciI+CgkJPHBhdGggaWQ9IkxheWVyIiBjbGFzcz0ic2hwMCIgZD0iTTQ3IDNMNDcgNDVDNDcgNDYuMSA0Ni4xIDQ3IDQ1IDQ3TDMgNDdDMS45IDQ3IDEgNDYuMSAxIDQ1TDEgM0MxIDEuOSAxLjkgMSAzIDFMNDUgMUM0Ni4xIDEgNDcgMS45IDQ3IDNaIiAvPgoJCTxwYXRoIGlkPSJMYXllciIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGFzcz0ic2hwMSIgZD0iTTI4LjYyIDQwTDI4LjYyIDM3LjYxTDMyLjI1IDM3LjIyTDI5Ljg2IDMwTDE3LjUzIDMwTDE1LjE4IDM3LjIyTDE4Ljc2IDM3LjYxTDE4Ljc2IDQwTDguNiA0MEw4LjYgMzcuNjZMMTAuNSAzNy4xN0MxMS4yMSAzNi45OSAxMS40MyAzNi44NiAxMS42IDM2LjMzTDIxLjMzIDhMMjYuNDUgOEwzNi4zNiAzNi4zOEMzNi41MyAzNi45MSAzNi44OCAzNi45OSAzNy40MiAzNy4xM0wzOS40IDM3LjYxTDM5LjQgNDBMMjguNjIgNDBaTTIzLjc2IDExLjQ1TDE4LjU0IDI3TDI4Ljg4IDI3TDIzLjc2IDExLjQ1WiIgLz4KCTwvZz4KPC9zdmc+"
+            alt="">
+      </div>
     </div>
-    <div class="time" style="padding-right: 7px;">{{ rxTime | date: 'HH:mm a' }}<br>{{ rxTime | date: 'dd-MM-yyyy' }}</div>
+    <div class="time" style="padding-right: 7px;">{{ rxTime | date: 'HH:mm' }}<br>{{ rxTime | date: 'dd-MM-yy' }}</div>
   </div>
 
 </div>

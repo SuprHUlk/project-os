@@ -23,8 +23,8 @@
   <div class="body">
 
     <img *ngIf="file.mimeType === 'image'" [src]="link" alt="">
-      <video *ngIf="file.mimeType === 'video'" controls>
-        <source [src]="link">
+    <video *ngIf="file.mimeType === 'video'" controls>
+      <source [src]="link">
     </video>
 
   </div>

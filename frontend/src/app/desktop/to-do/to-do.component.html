@@ -25,16 +25,16 @@
     <p style="font-size: xx-large; margin: 0">List</p>
     <div class="tasks" [style.max-height]="maxHeight">
       <div class="task" *ngFor="let task of tasks">
-        <p style="word-break: break-word;">{{ task.task }}</p>
+        <p style="word-break: break-word; max-width: 82%;">{{ task.task }}</p>
         <span matRipple class="material-symbols-outlined" style="cursor: pointer;" (click)="delete(task._id)">cancel</span>
       </div>
     </div>
-    <form [formGroup]="toDoForm">
-      <mat-form-field >
+    <form>
+      <mat-form-field [formGroup]="toDoForm">
         <mat-label>Task</mat-label>
         <input formControlName="task" input="task" matInput>
       </mat-form-field>
-      <button mat-stroked-button color="accent" (click)="onClick()">Add</button>
+      <button mat-stroked-button color="accent" (click)="add()">Add</button>
     </form>
   </div>
 

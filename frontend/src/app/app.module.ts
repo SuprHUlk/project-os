@@ -30,6 +30,7 @@ import { ResizableModule } from 'angular-resizable-element';
 import { ExplorerComponent } from './desktop/explorer/explorer.component';
 import { MediaViewerComponent } from './desktop/media-viewer/media-viewer.component';
 import { ToDoComponent } from './desktop/to-do/to-do.component';
+import { NotesComponent } from './desktop/notes/notes.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ToDoComponent } from './desktop/to-do/to-do.component';
     ExplorerComponent,
     MediaViewerComponent,
     ToDoComponent,
+    NotesComponent,
   ],
   imports: [
     BrowserModule,

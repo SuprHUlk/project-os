@@ -19,11 +19,10 @@ export class VerifyIdTokenService {
         map(
           (result: any) => {
             return result.isValid === "true";
-          },
-          (error: any) => {
-            return false;
           }
-        )
+        ),
+        catchError(err =>
+          throwError(err))
       );
   }
 

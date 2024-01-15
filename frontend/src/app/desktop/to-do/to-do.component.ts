@@ -46,9 +46,7 @@ export class ToDoComponent {
     }
   }
 
-  onClick() {
-    console.log(this.toDoForm.value);
-
+  add() {
     if(this.toDoForm.valid) {
       this.toDoService.addTask(this.toDoForm.value)
         .subscribe(
@@ -69,7 +67,6 @@ export class ToDoComponent {
       .subscribe(
         res => {
           this.tasks = res.result;
-          console.log(this.tasks);
         }
       )
   }

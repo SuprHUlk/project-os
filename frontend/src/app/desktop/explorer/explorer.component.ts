@@ -29,7 +29,7 @@ export class ExplorerComponent {
   isSidenavOpened: boolean = true;
 
   @Output('closeExplorer') isExplorerOpen = new EventEmitter<{ appName: string, status: boolean }>();
-  @Output('openMediaViewer') fileEmitter = new EventEmitter<{ mimeType: string, link: string }>();
+  @Output('openApp') fileEmitter = new EventEmitter<{ mimeType: string, link: string, app: string }>();
 
   width: string = '40%';
   height: string = '40%';
@@ -40,8 +40,8 @@ export class ExplorerComponent {
     this.isExplorerOpen.emit({ appName: "explorer", status: false });
   }
 
-  openMediaViewer(mimeType: string, link: string) {
-    this.fileEmitter.emit({ mimeType: link, link: mimeType });
+  openApp(mimeType: string, link: string, app: string) {
+    this.fileEmitter.emit({ mimeType: link, link: mimeType, app: app });
   }
 
   maximizeExplorer() {
@@ -72,6 +72,8 @@ export class ExplorerComponent {
     if(folderName === this.folderList[this.idx]) return;
 
     if(folderName === 'home') {
+      if(this.folderList.length === 0) return;
+
       this.folderList = [];
       this.idx = -1;
       this.path = 'home'
@@ -83,6 +85,7 @@ export class ExplorerComponent {
     this.fileService.download(folderName)
       .subscribe(
         (res: any) => {
+          console.log(res);
           this.docs = res.files;
           this.changeView(folderName, src);
         },

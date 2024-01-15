@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, take, map } from 'rxjs';
+import { Observable, take, map, catchError, of } from 'rxjs';
 import { VerifyIdTokenService } from '../service/verify-id-token.service';
 
 export const AuthGuard: CanActivateFn = (
@@ -15,16 +15,17 @@ export const AuthGuard: CanActivateFn = (
     return router.createUrlTree(['/']);
   }
 
-  return inject(VerifyIdTokenService).verifyIdToken(idToken!.replace(/"/g, ''))
-    .pipe(
+  return inject(VerifyIdTokenService).verifyIdToken(idToken!.replace(/"/g, '')).pipe(
       take(1),
-      map((result: any) => {
-        const isAuth = result;
+      map((isAuth: boolean) => {
         console.log(isAuth);
         if(isAuth) {
           return true;
         }
         return router.createUrlTree(['/']);
+      }),
+      catchError((error) => {
+        return of(router.createUrlTree(['/']));
       })
     )
 };

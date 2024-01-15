@@ -15,19 +15,17 @@ export class DesktopComponent {
     'terminal': false,
     'explorer': false,
     'mediaViewer': false,
-    'toDo': true
+    'toDo': false,
+    'notes': false
   };
 
-  file: { mimeType: string, link: string } = { mimeType: '', link: ''};
+  file: { mimeType: string, link: string, app: string } = { mimeType: '', link: '', app: ''};
 
   time = new Date();
   rxTime = new Date();
   subscription: any;
 
   ngOnInit() {
-
-    console.log(this.rxTime);
-
 
     this.subscription = timer(0, 1000)
       .pipe(
@@ -61,16 +59,27 @@ export class DesktopComponent {
     else if(appName === 'toDo') {
       this.apps.toDo = status;
     }
+    else if(appName === 'notes') {
+      this.apps.notes = status;
+    }
 
   }
 
-  openMediaViewer(data: { mimeType: string, link: string }) {
-    const { mimeType, link } = data;
-    if (this.apps.mediaViewer) this.apps.mediaViewer = !this.apps.mediaViewer;
-    this.apps.mediaViewer = true;
+  openApp(data: { mimeType: string, link: string, app: string}) {
+    const { mimeType, link, app } = data;
+
+    if(app === 'mediaViewer') {
+      if (this.apps.mediaViewer) this.apps.mediaViewer = !this.apps.mediaViewer;
+      this.apps.mediaViewer = true;
+    }
+    else if(app === 'notes') {
+      if (this.apps.notes) this.apps.notes = !this.apps.notes;
+      this.apps.notes = true;
+    }
+
     console.log(mimeType, link);
 
-    this.file = { mimeType, link };
+    this.file = { mimeType, link, app };
   }
 
   logOut() {

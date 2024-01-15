@@ -54,10 +54,19 @@
 }
 
 
-.terminal, .explorer, .media-viewer, .to-do {
+.terminal, .explorer, .media-viewer, .to-do, .notes {
   padding: 5px 5px 0 5px;
 }
 
-.terminal:hover, .explorer:hover, .media-viewer:hover, .to-do:hover {
+.terminal:hover, .explorer:hover, .media-viewer:hover, .to-do:hover, .notes:hover {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+@media only screen and (max-width: 480px) {
+
+  .apps {
+    overflow: scroll;
+  }
+
 }

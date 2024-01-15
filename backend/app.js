@@ -8,6 +8,7 @@ const isAuthenticatedRoutes = require('./routes/isAuthenticatedRoutes');
 const terminalRoutes = require('./routes/terminalRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 const toDoRoutes = require('./routes/toDoRoutes');
+const notesRoutes = require('./routes/notesRoutes');
 
 const app = express();
 
@@ -62,5 +63,6 @@ app.use("/valid", isAuthenticatedRoutes);
 app.use("/terminal", terminalRoutes);
 app.use("/file", fileRoutes);
 app.use("/todo", toDoRoutes);
+app.use("/notes", notesRoutes);
 
 module.exports = app;

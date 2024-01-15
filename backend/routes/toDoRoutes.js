@@ -1,11 +1,12 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 
+const tokenValidator = require('../config/tokenValidator');
 const toDoModel = require('../models/toDoModel');
 
 const router = express.Router();
 
-router.post('/add', (req, res, next) => {
+router.post('/add', tokenValidator, (req, res, next) => {
     const userId = jwt.verify(req.headers.authorization.split(" ")[1], "meAryaman").userId;
     
     const data = new toDoModel({
@@ -29,7 +30,7 @@ router.post('/add', (req, res, next) => {
         });
 })
 
-router.get('/fetch', async (req, res, next) => {
+router.get('/fetch', tokenValidator, async (req, res, next) => {
     try {
         const userId = jwt.verify(req.headers.authorization.split(" ")[1], "meAryaman").userId;
         const query = { userId: userId };
@@ -48,7 +49,7 @@ router.get('/fetch', async (req, res, next) => {
     }
 })
 
-router.delete('/delete/:id', (req, res, next) => {
+router.delete('/delete/:id', tokenValidator, (req, res, next) => {
     toDoModel.deleteOne({ _id: req.params.id })
         .then((result) => {
             res.status(200).json({
