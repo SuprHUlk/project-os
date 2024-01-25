@@ -1,4 +1,1 @@
-bungus_backend/src/main/resources/ServiceKey.json
-bungus_backend/src/main/resources/application.properties
-bungus_backend/src/test/
-bungus_backend/target/
+backend/.env

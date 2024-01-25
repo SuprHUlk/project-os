@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const db = require('./config/firebase');
 const path = require('path');
 
 const authRoutes = require('./routes/authRoutes');
@@ -13,7 +12,9 @@ const notesRoutes = require('./routes/notesRoutes');
 
 const app = express();
 
-mongoose.connect("mongodb+srv://ayush:o8YWE6QiFvdPcYko@cluster0.xljrb9i.mongodb.net/test?retryWrites=true&w=majority")
+const URL = process.env.DATABASE_URL
+
+mongoose.connect(URL)
     .then(() => {
         console.log("Connected");
     })

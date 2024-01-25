@@ -77,8 +77,6 @@ export class DesktopComponent {
       this.apps.notes = true;
     }
 
-    console.log(mimeType, link);
-
     this.file = { mimeType, link, app };
   }
 
