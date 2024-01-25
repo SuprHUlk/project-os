@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const db = require('./config/firebase');
+const path = require('path');
 
 const authRoutes = require('./routes/authRoutes');
 const isAuthenticatedRoutes = require('./routes/isAuthenticatedRoutes');
@@ -20,42 +21,35 @@ mongoose.connect("mongodb+srv://ayush:o8YWE6QiFvdPcYko@cluster0.xljrb9i.mongodb.
         console.log("Connection failed");
     })
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
-    next();
-});
-
-app.use((req, res, next) => {
-    // console.log(`Received ${req.method} request for ${req.originalUrl}`);
-    // console.log('Request headers:', req.headers);
-  
+    const allowedOrigins = [
+        'http://gradient-os-env.eba-8pfmjh6z.ap-south-1.elasticbeanstalk.com'
+    ];
+    
+    const origin = req.headers.origin;
+    
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    
     if (req.method === 'OPTIONS') {
-      console.log('Received OPTIONS request');
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
-      res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-      res.status(200).end();
-    } 
-    else {
-      next();
+        console.log('Received OPTIONS request');
+        res.status(200).end();
+    } else {
+       next();
     }
 });
 
-app.use('/test', async (req, res, next) => {
-    const docRef = db.collection('test').doc('testing');
-    await docRef.set({
-        title: 'ayush'
-    })
-    console.log(req.body);
-    res.status(200).json({
-        msg: 'ok'
-    })
-})
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/", express.static(path.join(__dirname, "angular")));
+
+
 
 
 app.use("/auth", authRoutes);
@@ -64,5 +58,8 @@ app.use("/terminal", terminalRoutes);
 app.use("/file", fileRoutes);
 app.use("/todo", toDoRoutes);
 app.use("/notes", notesRoutes);
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, "angular", "index.html"));
+})
 
 module.exports = app;

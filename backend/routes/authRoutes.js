@@ -1,10 +1,12 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const userModel = require('../models/userModel');
 
 const router = express.Router();
+
+const SECRET = process.env.SECRET;
 
 router.post("/google", (req, res, next) => {
   userModel.findOne({ email: req.body.email })
@@ -13,14 +15,14 @@ router.post("/google", (req, res, next) => {
         const data = new userModel({
           username: req.body.username,
           email: req.body.email,
-          password: "meAryaman"
+          password: SECRET
         });
 
         data.save()
           .then(result => {
             const token = jwt.sign(
               {email: result.email, userId: result._id, username: result.username},
-              'meAryaman',
+              SECRET,
               { expiresIn: "1h" }
             );
             return res.status(201).json({
@@ -36,7 +38,7 @@ router.post("/google", (req, res, next) => {
       else {
         const token = jwt.sign(
           {email: user.email, userId: user._id, username: user.username},
-          'meAryaman',
+          SECRET,
           { expiresIn: "1h" }
         );
         return res.status(200).json({
@@ -70,7 +72,7 @@ router.post("/login", (req, res, next) => {
 
             const token = jwt.sign(
                 {email: fetchedUser.email, userId: fetchedUser._id, username: fetchedUser.username},
-                'meAryaman',
+                SECRET,
                 { expiresIn: "1h" }); 
 
             res.status(200).json({

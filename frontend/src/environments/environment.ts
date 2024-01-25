@@ -8,4 +8,6 @@ export const environment = {
     messagingSenderId: '681737588002',
     measurementId: 'G-X7BL3DLWVN',
   },
+  production: true,
+  apiUrl: 'http://gradient-os-env.eba-8pfmjh6z.ap-south-1.elasticbeanstalk.com'
 };

@@ -6,8 +6,10 @@ const toDoModel = require('../models/toDoModel');
 
 const router = express.Router();
 
+const SECRET = process.env.SECRET;
+
 router.post('/add', tokenValidator, (req, res, next) => {
-    const userId = jwt.verify(req.headers.authorization.split(" ")[1], "meAryaman").userId;
+    const userId = jwt.verify(req.headers.authorization.split(" ")[1], SECRET).userId;
     
     const data = new toDoModel({
         userId: userId,
@@ -32,7 +34,7 @@ router.post('/add', tokenValidator, (req, res, next) => {
 
 router.get('/fetch', tokenValidator, async (req, res, next) => {
     try {
-        const userId = jwt.verify(req.headers.authorization.split(" ")[1], "meAryaman").userId;
+        const userId = jwt.verify(req.headers.authorization.split(" ")[1], SECRET).userId;
         const query = { userId: userId };
         const result = await toDoModel.find(query);
 

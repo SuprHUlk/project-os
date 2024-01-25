@@ -10,6 +10,8 @@ const fileModel = require('../models/fileModel');
 
 const router = express.Router();
 
+const SECRET = process.env.SECRET;
+
 const upload = multer({ storage: multer.memoryStorage() });
 
 const generateUniqueFilename = (originalname) => {
@@ -58,7 +60,7 @@ router.post('/upload', tokenValidator, upload.single('file'), (req, res, next) =
 router.post('/upload', (req, res) => {
 
   const token = req.headers.authorization.split(" ")[1];
-  const decodeToken = jwt.verify(token, "meAryaman");
+  const decodeToken = jwt.verify(token, SECRET);
 
   const data = new fileModel({
     userId: decodeToken.userId,
@@ -82,7 +84,7 @@ router.post('/upload', (req, res) => {
 router.get('/download', tokenValidator, async (req, res) => {
 
  try {
-  const userId = jwt.verify(req.headers.authorization.split(" ")[1], 'meAryaman').userId;
+  const userId = jwt.verify(req.headers.authorization.split(" ")[1], SECRET).userId;
   const mimeType = req.query.mimeType;
 
   const query = {

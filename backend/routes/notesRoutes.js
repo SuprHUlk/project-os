@@ -6,10 +6,12 @@ const tokenValidator = require('../config/tokenValidator');
 
 const router = express.Router();
 
+const SECRET = process.env.SECRET;
+
 router.post('/save', tokenValidator, (req, res, next) => {
 
     const data = new fileModel({
-        userId: jwt.verify(req.headers.authorization.split(" ")[1], 'meAryaman').userId,
+        userId: jwt.verify(req.headers.authorization.split(" ")[1], SECRET).userId,
         link: req.body.content,
         mimeType: 'notes',
         name: req.body.fileName

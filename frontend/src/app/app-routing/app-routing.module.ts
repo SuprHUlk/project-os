@@ -8,7 +8,6 @@ import { DesktopComponent } from '../desktop/desktop.component';
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'desktop', component: DesktopComponent, canActivate: [AuthGuard]}
-  // { path: 'desktop', component: DesktopComponent}
 ]
 
 @NgModule({
