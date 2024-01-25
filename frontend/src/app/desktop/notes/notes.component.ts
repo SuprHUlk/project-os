@@ -29,7 +29,6 @@ export class NotesComponent {
   content: string = 'You can find your saved notes inside notes folder in Explorer.';
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(12321);
     if (this.file.app === 'notes') {
       this.content = this.file.link;
     }
@@ -56,12 +55,10 @@ export class NotesComponent {
       fileName: this.notesForm.value.fileName + '.txt',
       content: this.content,
     });
-    console.log(this.notesForm.value);
 
     if(this.notesForm.valid) {
       this.notesService.saveFile(this.notesForm.value)
         .subscribe((res) => {
-            console.log(res);
             this.close();
           }
         )

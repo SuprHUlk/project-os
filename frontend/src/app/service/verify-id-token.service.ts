@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { take, map, catchError, throwError } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +15,7 @@ export class VerifyIdTokenService {
 
     const request = { };
 
-    return this.http.post('http://localhost:3000/valid/isauthenticated', request)
+    return this.http.post(environment.apiUrl + '/valid/isauthenticated', request)
       .pipe(
         take(1),
         map(

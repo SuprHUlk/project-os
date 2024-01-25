@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, take } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +12,7 @@ export class ToDoService {
   constructor(private http: HttpClient) { }
 
   addTask(task: any): Observable<any> {
-    return this.http.post('http://localhost:3000/todo/add', task)
+    return this.http.post(environment.apiUrl + '/todo/add', task)
       .pipe(
         take(1),
         map(
@@ -25,7 +27,7 @@ export class ToDoService {
   }
 
   fetchTasks(): Observable<any> {
-    return this.http.get('http://localhost:3000/todo/fetch')
+    return this.http.get(environment.apiUrl + '/todo/fetch')
       .pipe(
         take(1),
         map(
@@ -41,7 +43,7 @@ export class ToDoService {
   }
 
   deleteTask(_id: string): Observable<any> {
-    return this.http.delete('http://localhost:3000/todo/delete/'+ _id)
+    return this.http.delete(environment.apiUrl + '/todo/delete/'+ _id)
       .pipe(
         take(1),
         map(

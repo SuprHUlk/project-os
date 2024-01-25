@@ -19,7 +19,6 @@ export class TerminalComponent {
   height: string = '40%';
   style: object = {color: 'red'};
   cmd: string = '';
-  // displayedCmd: string = '';
   displayedCmd: any = "";
   dragPosition = {x: 0, y: 0};
 

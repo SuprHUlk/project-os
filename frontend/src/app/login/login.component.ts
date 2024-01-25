@@ -40,8 +40,6 @@ export class LoginComponent {
   }
 
   logInWithEmailAndPassword() {
-    console.log(this.logInForm.value);
-
     if(!this.logInForm.valid) {
       this.openSnackBar('admin-restricted-operation: Please fill all the fields with valid values', 'Ok');
     }
@@ -64,8 +62,6 @@ export class LoginComponent {
   }
 
   signUpWithEmailAndPassword() {
-    console.log(this.signUpForm.value);
-
     if(!this.signUpForm.valid) {
       this.openSnackBar('admin-restricted-operation: Please fill all the fields with valid values', 'Ok');
     }
@@ -73,7 +69,6 @@ export class LoginComponent {
       this.loginService.signUpWithEmailAndPassword(this.signUpForm.value)
       .subscribe(
         (response: any) => {
-          console.log(response);
           this.display();
             this.openSnackBar('Sign Up successful', 'Ok');
         },

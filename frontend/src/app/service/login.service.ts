@@ -4,6 +4,8 @@ import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http';
 import { take, map, catchError, throwError } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,11 +15,10 @@ export class LoginService {
 
   logInWithEmailAndPassword(logInForm: any): any {
 
-    return this.http.post("http://localhost:3000/auth/login", logInForm)
+    return this.http.post(environment.apiUrl + "/auth/login", logInForm)
       .pipe(
         take(1),
         map((result: any) => {
-          console.log(result);
           localStorage.setItem('idToken', result.idToken);
           localStorage.setItem('username', result.username);
           this.router.navigate(['/desktop']);
@@ -35,13 +36,12 @@ export class LoginService {
     return signInWithPopup(auth, provider)
       .then(
           (result: any) => {
-            this.http.post("http://localhost:3000/auth/google", {
+            this.http.post(environment.apiUrl + "/auth/google", {
               username: result._tokenResponse.displayName,
               email: result._tokenResponse.email,
               })
               .subscribe(
                 ((res: any) => {
-                  console.log(res);
                   localStorage.setItem('idToken', res.idToken);
                   localStorage.setItem('username', res.username);
                   this.router.navigate(['/desktop']);
@@ -53,11 +53,10 @@ export class LoginService {
   }
 
   signUpWithEmailAndPassword(signUpForm: any): any {
-    return this.http.post("http://localhost:3000/auth/signup", signUpForm)
+    return this.http.post(environment.apiUrl + "/auth/signup", signUpForm)
       .pipe(
         take(1),
         map((result: any) => {
-          console.log(result);
           return 'NO_ERROR';
         }),
         catchError((error) => {

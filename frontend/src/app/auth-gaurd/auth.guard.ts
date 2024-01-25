@@ -18,7 +18,6 @@ export const AuthGuard: CanActivateFn = (
   return inject(VerifyIdTokenService).verifyIdToken(idToken!.replace(/"/g, '')).pipe(
       take(1),
       map((isAuth: boolean) => {
-        console.log(isAuth);
         if(isAuth) {
           return true;
         }

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { take, map } from 'rxjs';
-import { idToken } from '@angular/fire/auth';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +7,6 @@ import { idToken } from '@angular/fire/auth';
 export class TerminalService {
 
   constructor(private http: HttpClient) { }
-
-  // returnVal: string = '';
   returnVal: any;
 
   check(command: string) {

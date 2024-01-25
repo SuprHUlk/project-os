@@ -60,7 +60,6 @@ export class ExplorerComponent {
     this.fileService.upload(event)
       .subscribe(
         (res) => {
-          console.log(res);
         },
         (err) => {
           console.log(err);
@@ -85,7 +84,6 @@ export class ExplorerComponent {
     this.fileService.download(folderName)
       .subscribe(
         (res: any) => {
-          console.log(res);
           this.docs = res.files;
           this.changeView(folderName, src);
         },

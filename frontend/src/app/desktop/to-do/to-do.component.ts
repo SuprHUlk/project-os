@@ -76,7 +76,6 @@ export class ToDoComponent {
       .subscribe(
         (res: any) => {
           this.fetch();
-          console.log(res);
         },
         (err: any) => {
           console.log(err);

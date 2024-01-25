@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, take } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,9 +16,8 @@ export class FileService {
 
     const data = new FormData();
     data.append('file', file, file.name);
-    console.log(data.get('file'));
 
-    return this.http.post('http://localhost:3000/file/upload', data)
+    return this.http.post(environment.apiUrl + '/file/upload', data)
       .pipe(
         take(1),
         map(
@@ -36,7 +37,7 @@ export class FileService {
       mimeType: folder
     }
 
-    return this.http.get('http://localhost:3000/file/download', { params })
+    return this.http.get(environment.apiUrl + '/file/download', { params })
       .pipe(
         take(1),
         map((res) => {
