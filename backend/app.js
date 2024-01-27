@@ -25,7 +25,8 @@ mongoose.connect(URL)
 
 app.use((req, res, next) => {
     const allowedOrigins = [
-        'http://gradient-os-env.eba-8pfmjh6z.ap-south-1.elasticbeanstalk.com'
+        'http://gradient-os-env.eba-8pfmjh6z.ap-south-1.elasticbeanstalk.com',
+        'http://www.gradientos.live'
     ];
     
     const origin = req.headers.origin;
