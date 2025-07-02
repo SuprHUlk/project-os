@@ -9,5 +9,5 @@ export const environment = {
     measurementId: 'G-X7BL3DLWVN',
   },
   production: true,
-  apiUrl: 'http://gradient-os-env.eba-8pfmjh6z.ap-south-1.elasticbeanstalk.com'
+  apiUrl: 'https://backend-900357939211.asia-south1.run.app',
 };
