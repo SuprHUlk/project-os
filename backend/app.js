@@ -14,43 +14,43 @@ const app = express();
 const URL = process.env.DATABASE_URL;
 
 mongoose
-  .connect(URL)
-  .then(() => {
-    console.log("Connected");
-  })
-  .catch(() => {
-    console.log("Connection failed");
-  });
+    .connect(URL)
+    .then(() => {
+        console.log("Connected");
+    })
+    .catch(() => {
+        console.log("Connection failed");
+    });
 
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    "http://gradient-os-env.eba-8pfmjh6z.ap-south-1.elasticbeanstalk.com",
-    "http://www.gradientos.live",
-    "*",
-  ];
+    const allowedOrigins = [
+        "http://gradient-os-env.eba-8pfmjh6z.ap-south-1.elasticbeanstalk.com",
+        "http://www.gradientos.live",
+        "https://gradientos.suprhulk.com",
+    ];
 
-  const origin = req.headers.origin;
+    const origin = req.headers.origin;
 
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin);
+    }
 
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PATCH, DELETE, OPTIONS"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", "true");
 
-  if (req.method === "OPTIONS") {
-    console.log("Received OPTIONS request");
-    res.status(200).end();
-  } else {
-    next();
-  }
+    if (req.method === "OPTIONS") {
+        console.log("Received OPTIONS request");
+        res.status(200).end();
+    } else {
+        next();
+    }
 });
 
 app.use(bodyParser.json());
@@ -68,7 +68,7 @@ app.use("/notes", notesRoutes);
 // });
 
 app.use("/", (req, res) => {
-  res.status(200).send("OK");
+    res.status(200).send("OK");
 });
 
 module.exports = app;
